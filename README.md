@@ -1,2 +1,3 @@
-# circularKeyboard 
-# circularKeyboard 
+#nKey
+
+Prototype of a circulary keyboard.
