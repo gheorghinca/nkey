@@ -1,3 +1,3 @@
 # nkey
 
-circular keyboard prototype
+Circular keyboard prototype
