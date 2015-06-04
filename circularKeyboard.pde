@@ -9,6 +9,7 @@ Letter centerLetter;
 Letter[] letters;
 Point p1, p2, p3;
 Ball ball = null;
+int[] leftLetters, rightLetters;
 
 
 void setup() {
@@ -100,8 +101,8 @@ void calculateDiameter() {
     noLettersRight = halfLetters+1;
   }
 
-  int[] leftLetters = new int[noLettersLeft];
-  int[] rightLetters = new int[noLettersRight];
+  leftLetters = new int[noLettersLeft];
+  rightLetters = new int[noLettersRight];
 
   // add ids = for left and right
   idCenter = centerLetter.id;
@@ -130,10 +131,7 @@ void calculateDiameter() {
 
   detectLetterCollision();
 
-  for (int i=0; i<leftLetters.length; i++) {
-  }
-  for (int i=0; i<rightLetters.length; i++) {
-  }
+ 
 }
 
 void detectLetterCollision(){
