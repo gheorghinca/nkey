@@ -1,7 +1,7 @@
 class Letter {
 
-  int id; // based on this id we split the array in two and we increase and calculate the new points for each
-  Point point;
+  int id; // based on this id we split the array in two and we increase and calculate the new centerPoints for each
+  Point centerPoint, leftPoint, rightPoint;
   float distance;
   float diameterLetter;
   float currentDiameter;
@@ -14,7 +14,7 @@ class Letter {
     id = id1;
     text = textLetter;
     col = 10*id;
-    point = new Point(angle);
+    centerPoint = new Point(angle);
     diameterLetter = TWO_PI*r / noLetters;
   }
 
@@ -22,44 +22,63 @@ class Letter {
   void drawInit() {
 
     fill(0);
-    ellipse(point.x, point.y, diameterLetter, diameterLetter);
+    ellipse(centerPoint.x, centerPoint.y, diameterLetter, diameterLetter);
     fill(255, 239, 0);
     textSize(25);
     textAlign(CENTER, CENTER);
-    text(text, point.x, point.y);
+    text(text, centerPoint.x, centerPoint.y);
   }
 
   void drawBallMove() {
+    
     currentDiameter = diameterLetter*distance;
+    // calculate start and end points
+    calculateStartEndPoints(currentDiameter, centerPoint);
+    
     if (id == idCenter) {
       fill(255, 50, 50);
-      ellipse(point.x, point.y, diameterLetter*distance, diameterLetter*distance);
-      
-      // get the start and end point.
-      // based on direction use getOtherPoint to aquire the center based on prev point
-      // calculate diameter end points to right
-      // calculate diameter and 
+      ellipse(centerPoint.x, centerPoint.y, currentDiameter, currentDiameter);
     }
+    
+    
+    // go to the right 
+    for()
+    
+    // go to the left
+    for()
+    
+    // split the remaining distance to the others letters
+    
+    
+    
+      
+      
+      // based on direction use getOthercenterPoint to aquire the center based on prev centerPoint
+      // calculate diameter end centerPoints to right
+      // calculate diameter and 
+    
+    
+    
     fill(255, 239, 0);
     textSize(25);
     textAlign(CENTER, CENTER);
-    text(text, point.x, point.y);
+    text(text, centerPoint.x, centerPoint.y);
   }
 
-  float calculateDiameter(float diameterLetter, Point p1) {
+  float calculateStartEndPoints(float diameterLetter, Point p1) {
     float hDistance = diameterLetter/2;
-    Point leftPoint = getOtherPoint(p1, hDistance, true);
-    Point rightPoint = getOtherPoint(p1, hDistance, false);
+    leftPoint = getOtherPoint(p1, hDistance, true);
+    rightPoint = getOtherPoint(p1, hDistance, false);
 
     return (float)dist(leftPoint.x, rightPoint.x, leftPoint.y, rightPoint.y);
   }
 
-  Point getOtherPoint(Point p1, float distance, boolean isPositive) {
+  Point getOtherPoint(Point p1, float distance, boolean isClockwise) {
 
     float angle = distance/r;
-    Point secondPoint;
+
     float newAngle;
-    if (isPositive) {
+    if (isClockwise) {
       newAngle = p1.angle - angle;
     } else {
       newAngle = p1.angle + angle;

@@ -57,18 +57,22 @@ void draw() {
   fill(50, 100, 0);
   ball.move();
   ball.draw();
+  
   for (int i=0; i < noLetters; i++) { 
-    if (ball.moving == false){
+    if (ball.moving == false){   
       letters[i].drawInit();
     } else {
+      calculateDiameter();
       letters[i].drawBallMove();
     }
   }
+}
 
+void calculateDiameter() {
 
   // distance from mouse to all letters 
   for (Letter let : letters) {
-    float distanceToLetter = dist(let.point.x, let.point.y, mouseX, mouseY);
+    float distanceToLetter = dist(let.centerPoint.x, let.centerPoint.y, mouseX, mouseY);
     if (distanceToLetter > diameter)
        distanceToLetter = diameter;
     let.distance = map(distanceToLetter, 0, diameter, 3, 0);
@@ -124,15 +128,7 @@ void draw() {
     iter--;
   }
 
-  // check collision
-  for (int i=0; i < noLetters; i++) { 
-    if ((dist(letters[i].point.x, letters[i].point.y, ball.x, ball.y) < (letters[i].currentDiameter/2)+(ball.radius/2)) && (letters[i].id == centerLetter.id)) {
-      fill(0);
-      textSize(25);
-      textAlign(CENTER, CENTER);
-      text(letters[i].text, 40, 40);
-    }
-  }
+  detectLetterCollision();
 
   for (int i=0; i<leftLetters.length; i++) {
   }
@@ -140,6 +136,17 @@ void draw() {
   }
 }
 
+void detectLetterCollision(){
+   // check collision
+  for (int i=0; i < noLetters; i++) { 
+    if ((dist(letters[i].centerPoint.x, letters[i].centerPoint.y, ball.x, ball.y) < (letters[i].currentDiameter/2)+(ball.radius/2)) && (letters[i].id == centerLetter.id)) {
+      fill(0);
+      textSize(25);
+      textAlign(CENTER, CENTER);
+      text(letters[i].text, 40, 40);
+    }
+  }
+}
 
 void mousePressed() {
   if (ball.mouseOver(mouseX, mouseY)) {
